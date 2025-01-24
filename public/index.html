@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Weppo Sklep Internetowy</title>
+    </head>
+    <body>
+        <h1>Client-Server Communication</h1>
+        <button onclick="getMessage()">Get Message from Server</button>
+        <p id="message"></p>
+        <script>
+            async function getMessage() {
+                const response = await fetch("/api/message");
+                const data = await response.json();
+                document.getElementById("message").innerText = data.message;
+            }
+        </script>
+    </body>
+</html>
