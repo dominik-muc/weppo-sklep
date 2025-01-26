@@ -1,13 +1,18 @@
 import express from "express";
+import api from "./routes/api";
+import index from "./routes/index";
 
 const app = express();
 
-app.use(express.static("public"));
+app.set("view engine", "pug");
+app.set("views", "./views");
 
-app.get("/api/message", (req, res) => {
-    const message = "Hello :). This Message is From Server";
-    res.re;
-    res.json({ message });
+app.use("/static", express.static("public"));
+app.use("/api", api);
+app.use("/", index);
+
+app.use((req, res) => {
+    res.send("404");
 });
 
 app.listen(8080);
