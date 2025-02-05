@@ -10,6 +10,12 @@ router.get("/faq", (_, res) => {
 router.get("/about", (_, res) => {
     res.render("about");
 });
+router.get("/login", (_, res) => {
+    res.render("login");
+});
+router.get("/register", (_, res) => {
+    res.render("register");
+});
 router.get("/", (req, res) => {
     if (req.hostname == "Jurek Owsiak") {
         res.send("Oddaj pieniądze żydzie");

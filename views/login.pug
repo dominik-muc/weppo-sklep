@@ -1,0 +1,14 @@
+extends layouts/layout
+
+block content
+    h1 Logowanie
+    form(action="/api/login" method="post")
+        div
+            label(for="email") Email
+            input(type="email" name="email" required)
+        div
+            label(for="password") Hasło 
+            input#password(type="password" name="password" required)
+        button(type="submit") Zaloguj się
+    p Nie masz konta?
+        a(href="/register") Zarejestruj się
