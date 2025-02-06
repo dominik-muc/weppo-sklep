@@ -1,8 +1,8 @@
 extends layouts/layout
 
 block content
-    .container
-        .login-container
+    .container.login-container
+        .login
             h1 Logowanie
             form(action="/api/login" method="post")
                 .form-group
@@ -10,5 +10,7 @@ block content
                 .form-group
                     input#password(type="password" name="password" required placeholder="Wpisz swoje hasło")
                 button(type="submit") Zaloguj się
+            if message
+                p.error-message= message
             p.no-account Nie masz konta? 
                 a(href="/register") Zarejestruj się
