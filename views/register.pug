@@ -1,12 +1,20 @@
 extends layouts/layout
 
 block content
-    .container 
-        .login-container
+    .container.login-container
+        .login
             h1 Rejestracja
             form(action="/api/register" method="post")
+                .form-group 
+                    input(type="text", name="firstName" required placeholder="Wpisz swoje imię")
+                .form-group 
+                    input(type="text", name="lastName" required placeholder="Wpisz swoje nazwisko")
                 .form-group
                     input(type="email" name="email" required placeholder="Wpisz swój email")
                 .form-group
                     input#password(type="password" name="password" required placeholder="Wpisz swoje hasło")
+                .form-group
+                    input#confrimPassword(type="password" name="confirmPassword" required placeholder="Powtórz hasło")
                 button(type="submit") Zarejestruj się
+                if message
+                    p.error-message= message

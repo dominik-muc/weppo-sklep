@@ -1,8 +1,8 @@
 nav
     .nav-left
-        p Logo
+        img(src="/static/icons/android-chrome-192x192.png" alt="logo")
     .nav-center 
-        p (search bar)
+        input#searchbar(type="text", name="search", placeholder="Znajdź produkt..." onkeyup="search_product()")
     .nav-right
         a(href="/", class="link")         Sklep
         a(href="/faq").link      FAQ

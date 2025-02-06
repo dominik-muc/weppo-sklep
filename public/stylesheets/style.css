@@ -22,7 +22,7 @@ body {
 nav {
     background-color: #1c3d5a;
     color: white;
-    padding: 20px;
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -33,7 +33,25 @@ nav {
 .nav-right {
     display: flex;
     align-items: center;
+}
 
+.nav-left img {
+    max-width: 50px;
+    max-height: 50px;
+    
+}
+
+.nav-center {
+    flex: 1;
+    margin-left: 50px;
+}
+
+#searchbar {
+    padding: 10px;
+    border: 0px;
+    border-radius: 10px;
+    width: 50%;
+    min-width: 200px;
 }
 
 nav a {
@@ -42,6 +60,7 @@ nav a {
     font-size: 1rem;
     padding: 4px 12px;
     transition: 0.3s;
+    font-weight: bold;
 }
 
 nav a:hover {
@@ -61,11 +80,14 @@ footer {
 .container {
     flex-grow: 1;
     display: flex;
+}
+
+.login-container {
     justify-content: center;
     align-items: center;
 }
 
-.login-container {
+.login {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -80,19 +102,19 @@ footer {
     text-align: center;
 }
 
-.login-container h1 {
+.login h1 {
     margin-bottom: 20px;
     color: #1c3d5a;
 }
 
-.login-container input {
+.login input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-.login-container button {
+.login button {
     width: 100%;
     padding: 10px;
     background-color: #1c3d5a;
@@ -104,11 +126,11 @@ footer {
     font-size: 1rem;
 }
 
-.login-container button:hover {
+.login button:hover {
     background-color: #274b6d;
 }
 
-.form-group {
+.login .form-group {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -116,7 +138,7 @@ footer {
     margin-bottom: 10px;
 }
 
-input::placeholder {
+.login input::placeholder {
     color: #aaa;
     font-size: 0.9rem;
 }
@@ -134,4 +156,9 @@ input::placeholder {
 
 .no-account a:hover {
     text-decoration: underline;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
 }
