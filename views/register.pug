@@ -1,12 +1,12 @@
 extends layouts/layout
 
 block content
-    h1 Rejestracja
-    form(action="/api/register" method="post")
-        div
-            label(for="email") Email
-            input(type="email" name="email" required)
-        div
-            label(for="password") Hasło
-            input#password(type="password" name="password" required)
-        button(type="submit") Zarejestruj się
+    .container 
+        .login-container
+            h1 Rejestracja
+            form(action="/api/register" method="post")
+                .form-group
+                    input(type="email" name="email" required placeholder="Wpisz swój email")
+                .form-group
+                    input#password(type="password" name="password" required placeholder="Wpisz swoje hasło")
+                button(type="submit") Zarejestruj się
