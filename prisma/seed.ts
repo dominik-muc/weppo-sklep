@@ -15,6 +15,21 @@ async function main() {
                 price: 2499.50,
                 description: "Nowoczesny smartfon z doskonałym aparatem",
             },
+            {
+                name: "Smartphone",
+                price: 2499.50,
+                description: "Nowoczesny smartfon z doskonałym aparatem",
+            },
+            {
+                name: "Smartphone",
+                price: 2499.50,
+                description: "Nowoczesny smartfon z doskonałym aparatem",
+            },
+            {
+                name: "Smartphone",
+                price: 2499.50,
+                description: "Nowoczesny smartfon z doskonałym aparatem",
+            },
         ],
     });
 }

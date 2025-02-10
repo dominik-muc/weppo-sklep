@@ -43,7 +43,7 @@ router.get("/cart", async (req, res) => {
     });
 
     if (!user || !user.cart) {
-        return res.render("cart", { cart: [] });
+        return res.render("cart", { cart: [], totalPrice: 0, shippingCost: 0, finalTotal: 0 });
     }
 
     const cartItems = user.cart.items.map(item => ({
@@ -53,7 +53,11 @@ router.get("/cart", async (req, res) => {
         quantity: item.quantity,
     }));
 
-    res.render("cart", { cart: cartItems });
+    const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const shippingCost = 10;
+    const finalTotal = totalPrice + shippingCost;
+
+    res.render("cart", { cart: cartItems, totalPrice, shippingCost, finalTotal });
 });
 
 router.get("/", async (req, res) => {
