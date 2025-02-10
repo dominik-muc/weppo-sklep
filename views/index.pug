@@ -2,12 +2,14 @@ extends layouts/layout
 
 block content
     .container
-        .products
-            each product in products
-                .product
-                    h2= product.name
-                    p= product.description
-                    p Cena: #{product.price} PLN
-                    form(action="/api/add", method="post")
-                        input(type="hidden", name="productId", value=product.id)
-                        button(type="submit") Dodaj do koszyka
+        .products-container
+            h1 Dostępne produkty
+            .products
+                each product in products
+                    .product
+                        h2= product.name
+                        p= product.description
+                        p Cena: #{product.price} PLN
+                        form(action="/api/add", method="post")
+                            input(type="hidden", name="productId", value=product.id)
+                            button(type="submit") Dodaj do koszyka

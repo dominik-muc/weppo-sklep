@@ -2,25 +2,27 @@ extends layouts/layout
 
 block content
     .container
-        if cart.length == 0
-            p Koszyk jest pusty 
-            a(href="/")
-                button Odwiedź stronę główną
-        else 
-            table 
-                thead
-                    tr
-                    th Nazwa produktu
-                    th Cena
-                    th Ilość
-                    th Akcja
-                tbody
+        .cart-container
+            .cart-items
+                h2 Twój koszyk
+                if cart.length === 0
+                    p Koszyk jest pusty.
+                else
                     each item in cart
-                        tr
-                            td= item.name
-                            td= item.price.toFixed(2) + " zł"
-                            td= item.quantity
-                            td
-                                form(method="POST", action="/api/remove")
-                                    input(type="hidden", name="cartItemId", value=item.id)
-                                    button(type="submit") Usuń
+                        .cart-item
+                            .item-info
+                                h3= item.name
+                            .item-details
+                                p Ilość: #{item.quantity}
+                                p Cena: #{item.price} PLN
+                            form(action="/api/remove", method="post")
+                                input(type="hidden", name="cartItemId", value=item.id)
+                                button(type="submit") 🗑 Usuń
+            if cart.length !== 0
+                .cart-summary
+                    h2 Podsumowanie
+                    p Całkowita wartość: #{totalPrice} PLN
+                    p Najniższy koszt dostawy: #{shippingCost} PLN
+                    h3 Razem: #{totalPrice + shippingCost} PLN
+                    form(action="/checkout", method="post")
+                        button(type="submit") Przejdź do płatności
