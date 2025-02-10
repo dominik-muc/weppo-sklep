@@ -1,0 +1,26 @@
+extends layouts/layout
+
+block content
+    .container
+        if cart.length == 0
+            p Koszyk jest pusty 
+            a(href="/")
+                button Odwiedź stronę główną
+        else 
+            table 
+                thead
+                    tr
+                    th Nazwa produktu
+                    th Cena
+                    th Ilość
+                    th Akcja
+                tbody
+                    each item in cart
+                        tr
+                            td= item.name
+                            td= item.price.toFixed(2) + " zł"
+                            td= item.quantity
+                            td
+                                form(method="POST", action="/api/remove")
+                                    input(type="hidden", name="cartItemId", value=item.id)
+                                    button(type="submit") Usuń

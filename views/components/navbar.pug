@@ -7,5 +7,8 @@ nav
         a(href="/", class="link")         Sklep
         a(href="/faq").link      FAQ
         a(href="/about").link    O nas
-        a(href="/login").link    Zaloguj się
-        a Koszyk
+        if user
+            a(href="/api/logout").link  Wyloguj się
+        else
+            a(href="/login").link   Zaloguj się
+        a(href="/cart").link Koszyk

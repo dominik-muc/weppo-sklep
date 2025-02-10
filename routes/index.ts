@@ -1,29 +1,73 @@
 import express from "express";
+import { PrismaClient } from "@prisma/client";
+import { isQualifiedName } from "typescript";
 
+const prisma = new PrismaClient();
 const router = express.Router();
 
 router.use("/favicon.ico", express.static("public/icons/favicon.ico"));
 router.use("/site.webmanifest", express.static("public/site.webmanifest"));
+
 router.get("/faq", (_, res) => {
     res.render("faq");
 });
+
 router.get("/about", (_, res) => {
     res.render("about");
 });
-router.get("/login", (_, res) => {
+
+router.get("/login", (req, res) => {
+    if (req.signedCookies.user) {
+        return res.redirect("/");
+    }
     res.render("login");
 });
-router.get("/register", (_, res) => {
+
+router.get("/register", (req, res) => {
+    if (req.signedCookies.user) {
+        return res.redirect("/");
+    }
     res.render("register");
 });
-router.get("/", (req, res) => {
+
+router.get("/cart", async (req, res) => {
+    const userEmail = req.signedCookies.user;
+
+    if (!userEmail) {
+        return res.redirect("/login");
+    }
+
+    const user = await prisma.user.findUnique({
+        where: { email: userEmail },
+        include: { cart: { include: { items: { include: { product: true }, }, }, }, },
+    });
+
+    if (!user || !user.cart) {
+        return res.render("cart", { cart: [] });
+    }
+
+    const cartItems = user.cart.items.map(item => ({
+        id: item.id,
+        name: item.product.name,
+        price: item.product.price,
+        quantity: item.quantity,
+    }));
+
+    res.render("cart", { cart: cartItems });
+});
+
+router.get("/", async (req, res) => {
     if (req.hostname == "Jurek Owsiak") {
         res.send("Oddaj pieniądze żydzie");
-    } else
+    } 
+    else {
+        const products = await prisma.product.findMany();
+
         res.render("index", {
-            title: "Strona główna",
-            products: ["test", "test2", "test3"],
+        title: "Strona główna",
+        products,
         });
+    }
 });
 
 export default router;
