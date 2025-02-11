@@ -52,9 +52,16 @@ router.get("/cart", async (req, res) => {
     res.render("cart", { cart: cartItems, totalPrice, shippingCost, finalTotal });
 });
 
-router.get("/order-success", (_, res) => {
+router.get("/order-success", (req, res) => {
+    if (!req.cookies.transactionSuccess) {
+        return res.redirect("/");
+    }
+    
+    res.clearCookie("transactionSuccess");
+
     res.render("order-success");
 });
+
 
 router.get("/", async (req, res) => {
     const products = await prisma.product.findMany();

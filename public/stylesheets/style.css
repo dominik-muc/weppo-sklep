@@ -321,3 +321,42 @@ button {
 button:hover {
     background-color: #274b6d;
 }
+
+.admin-container {
+
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.admin-container h2 {
+    color: #1c3d5a;
+    margin-bottom: 20px;
+}
+
+.admin-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.admin-container li {
+    margin: 15px 0;
+}
+
+.admin-container a {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #1c3d5a;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.order-container {
+    display: flex;
+    flex-direction: column;
+}
