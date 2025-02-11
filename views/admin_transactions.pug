@@ -1,0 +1,11 @@
+extends layouts/layout
+
+block content
+    .container
+        h2 Lista transakcji
+        each transaction in transactions
+            .transaction
+                h3 Zamówienie nr #{transaction.id} - Użytkownik: #{transaction.user.email}
+                ul
+                    each item in transaction.items
+                        li #{item.product.name} - #{item.quantity} szt. - #{item.product.price} PLN/szt.
