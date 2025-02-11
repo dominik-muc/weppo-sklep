@@ -178,6 +178,8 @@ router.post("/checkout", async (req, res) => {
         where: { cartId: user.cart.id },
     });
 
+    res.cookie("transactionSuccess", "true", { maxAge: 5 * 60 * 1000 });
+
     res.redirect("/order-success");
 });
 
