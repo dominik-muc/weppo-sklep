@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.get("/logout", (req, res) => {
     res.cookie('user', '', { maxAge: -1 });
+    res.cookie('role', '', { maxAge: -1 });
     res.redirect('/');
 });
 
@@ -23,8 +24,8 @@ router.post("/login", async (req, res) => {
         }
 
         res.cookie("user", email, { signed: true });
-
-
+        res.cookie("role", user.role, { signed: true });
+        
         res.redirect('/');
     } catch (error) {
         res.render('login', { message: "Wystąpił błąd. Spróbuj ponownie." });
@@ -44,11 +45,11 @@ router.post("/register", async (req, res) => {
 
     try {
         const existingUser = await prisma.user.findUnique({
-            where: { email }
+            where: { email },
         });
 
         if (existingUser) {
-            res.render('register', { message: "Ten email jest już zajęty" });
+            return res.render('register', { message: "Ten email jest już zajęty" });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -141,6 +142,43 @@ router.post("/remove", async (req, res) => {
     }
 
     res.redirect("/cart");
+});
+
+router.post("/checkout", async (req, res) => {
+    const userEmail = req.signedCookies.user;
+
+    if (!userEmail) {
+        return res.redirect("/login");
+    }
+
+    const user = await prisma.user.findUnique({
+        where: { email: userEmail },
+        include: {
+            cart: { include: { items: { include: { product: true } } } },
+        },
+    });
+
+    if (!user || !user.cart) {
+        return res.redirect("/cart");
+    }
+
+    await prisma.transaction.create({
+        data: {
+            userId: user.id,
+            items: {
+                create: user.cart.items.map(item => ({
+                    productId: item.product.id,
+                    quantity: item.quantity,
+                })),
+            },
+        },
+    });
+
+    await prisma.cartItem.deleteMany({
+        where: { cartId: user.cart.id },
+    });
+
+    res.redirect("/order-success");
 });
 
 

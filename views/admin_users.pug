@@ -1,0 +1,19 @@
+extends layouts/layout
+
+block content
+    .container
+        h2 Lista użytkowników
+        table
+            thead
+                tr
+                    th Email
+                    th Imię
+                    th Nazwisko
+                    th Rola
+            tbody
+                each user in users
+                    tr
+                        td= user.email
+                        td= user.firstName
+                        td= user.lastName
+                        td= user.role

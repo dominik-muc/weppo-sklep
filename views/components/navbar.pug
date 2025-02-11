@@ -5,9 +5,9 @@ nav
         input#searchbar(type="text", name="search", placeholder="Znajdź produkt..." onkeyup="search_product()")
     .nav-right
         a(href="/", class="link")         Sklep
-        a(href="/faq").link      FAQ
-        a(href="/about").link    O nas
         if user
+            if role === 'admin'
+                a(href="/admin").link Panel Admina
             a(href="/api/logout").link  Wyloguj się
         else
             a(href="/login").link   Zaloguj się

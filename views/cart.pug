@@ -14,15 +14,15 @@ block content
                                 h3= item.name
                             .item-details
                                 p Ilość: #{item.quantity}
-                                p Cena: #{item.price} PLN
+                                p Cena: #{item.price.toFixed(2)} PLN
                             form(action="/api/remove", method="post")
                                 input(type="hidden", name="cartItemId", value=item.id)
                                 button(type="submit") 🗑 Usuń
             if cart.length !== 0
                 .cart-summary
                     h2 Podsumowanie
-                    p Całkowita wartość: #{totalPrice} PLN
-                    p Najniższy koszt dostawy: #{shippingCost} PLN
-                    h3 Razem: #{totalPrice + shippingCost} PLN
-                    form(action="/checkout", method="post")
+                    p Całkowita wartość: #{totalPrice.toFixed(2)} PLN
+                    p Najniższy koszt dostawy: #{shippingCost.toFixed(2)} PLN
+                    h3 Razem: #{(totalPrice + shippingCost).toFixed(2)} PLN
+                    form(action="/api/checkout", method="post")
                         button(type="submit") Przejdź do płatności

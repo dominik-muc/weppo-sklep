@@ -1,0 +1,15 @@
+extends layouts/layout
+
+block content
+    .container
+        .products-container
+            h1 Zarządzanie produktami
+            .products
+                each product in products
+                    .product
+                        h2= product.name
+                        p= product.description
+                        p Cena: #{product.price} PLN
+                        form(action="/admin/products/delete", method="post")
+                            input(type="hidden", name="productId", value=product.id)
+                            button(type="submit") Usuń

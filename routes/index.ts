@@ -8,14 +8,6 @@ const router = express.Router();
 router.use("/favicon.ico", express.static("public/icons/favicon.ico"));
 router.use("/site.webmanifest", express.static("public/site.webmanifest"));
 
-router.get("/faq", (_, res) => {
-    res.render("faq");
-});
-
-router.get("/about", (_, res) => {
-    res.render("about");
-});
-
 router.get("/login", (req, res) => {
     if (req.signedCookies.user) {
         return res.redirect("/");
@@ -39,7 +31,7 @@ router.get("/cart", async (req, res) => {
 
     const user = await prisma.user.findUnique({
         where: { email: userEmail },
-        include: { cart: { include: { items: { include: { product: true }, }, }, }, },
+        include: { cart: { include: { items: { include: { product: true } } } } },
     });
 
     if (!user || !user.cart) {
@@ -60,18 +52,17 @@ router.get("/cart", async (req, res) => {
     res.render("cart", { cart: cartItems, totalPrice, shippingCost, finalTotal });
 });
 
-router.get("/", async (req, res) => {
-    if (req.hostname == "Jurek Owsiak") {
-        res.send("Oddaj pieniądze żydzie");
-    } 
-    else {
-        const products = await prisma.product.findMany();
+router.get("/order-success", (_, res) => {
+    res.render("order-success");
+});
 
-        res.render("index", {
-        title: "Strona główna",
-        products,
-        });
-    }
+router.get("/", async (req, res) => {
+    const products = await prisma.product.findMany();
+
+    res.render("index", {
+    title: "Strona główna",
+    products,
+    });
 });
 
 export default router;
